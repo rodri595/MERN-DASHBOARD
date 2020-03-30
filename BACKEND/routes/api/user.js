@@ -1,3 +1,4 @@
+require("../../dotenv").config();
 var express = require("express");
 var router = express.Router();
 var jwt = require("jsonwebtoken");
@@ -80,7 +81,7 @@ function inituser(db) {
       }
       if (userModel.comparePswd(user.userPswd, userPswd)) {
         delete user.userPswd;
-        var token = jwt.sign(user, process.env.ACESS_TOKEN_SECRET, {
+        var token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
           expiresIn: "60m"
         });
         return res.status(200).json({ user: user, jwt: token });

@@ -1,3 +1,4 @@
+require("../dotenv").config();
 var express = require("express");
 var router = express.Router();
 var passport = require("passport");
@@ -21,10 +22,14 @@ passport.use(
 
 function initApi(db) {
   var securityRouter = require("./api/user")(db);
-
   router.use("/secure", securityRouter);
+
   var jwtAuthMiddleware = passport.authenticate("jwt", {
     session: false
+  });
+  // http://localhost:3000/api/logput
+  router.delete("/logout", jwtAuthMiddleware, function(req, res) {
+    res.sendStatus(204);
   });
 
   // http://localhost:3000/api/version
