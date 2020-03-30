@@ -5,8 +5,9 @@ var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
 
-function initApp(db) {
-  var apiRouter = require('./routes/api');
+var indexRouter = require('./routes/index');
+
+function initApp(db){
   var app = express();
 
   // view engine setup
@@ -15,15 +16,17 @@ function initApp(db) {
 
   app.use(logger('dev'));
   app.use(express.json());
-  app.use(express.urlencoded({
-    extended: false
-  }));
+  app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(lessMiddleware(path.join(__dirname, 'public')));
   app.use(express.static(path.join(__dirname, 'public')));
 
+  var apiRouter = require('./routes/api/api')(db);
+  app.use('/', indexRouter);
   app.use('/api', apiRouter);
- 
+  console.log('appInit Inicializado');
+
+
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));
@@ -39,8 +42,11 @@ function initApp(db) {
     res.status(err.status || 500);
     res.render('error');
   });
-  return app;
-}
- 
 
+  return app;
+} // end initApp
+
+
+
+//module.exports = app;
 module.exports = initApp;
