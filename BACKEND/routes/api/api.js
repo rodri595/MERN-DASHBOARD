@@ -33,6 +33,7 @@ function initApi(db){
     // http://localhost:3000/api/version
   router.get('/version', jwtAuthMiddleware, function(req, res){
       res.status(200).json({"version":"API v1.0"});
+      console.log(req.user);
     } );
  return router;
 }

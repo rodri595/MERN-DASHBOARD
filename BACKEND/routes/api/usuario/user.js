@@ -2,7 +2,7 @@ var express =  require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 
-function initSeguridad (db) {
+function initUser (db) {
 var userModel = require('../../../models/usermodel')(db);
 
 router.get('/', function(req, res, next) {
@@ -35,10 +35,13 @@ router.get('/users/:id',(req, res)=>{
 router.post('/users/new', (req, res)=>{
   var datosEnviados = req.body;
 
+  console.log('data por aqui 1');
+
   userModel.addNew(datosEnviados, (err, addedDoc)=>{
+    console.log('data por aqui 2');
     if(err){
       console.log(err);
-      return res.status(500).json({error:'error'});
+      return res.status(500).json({error:'Error al crear Uusaurio'});
     }
     return res.status(200).json(addedDoc);
     }); //addNew
@@ -96,4 +99,4 @@ router.post('/login', (req, res)=>{
 
  return router;
 }
-module.exports = initSeguridad;
+module.exports = initUser;

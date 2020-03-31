@@ -9,14 +9,14 @@ function pswdGenerator( pswdRaw ){
 
 
 module.exports = (db)=>{
-  var seguridadModel = {}
-  var seguridadCollection = db.collection("users");
+  var UserModel = {}
+  var UserCollection = db.collection("users");
 
   //verificar que tenga el indice, y si no lo tiene crearlo
   if(!hasIndexEmail) {
-    seguridadCollection.indexExists("userEmail_1", (err, rslt)=>{
+    UserCollection.indexExists("userEmail_1", (err, rslt)=>{
         if(!rslt){
-          seguridadCollection.createIndex(
+          UserCollection.createIndex(
             { userEmail: 1 },
             { unique: true, name:"userEmail_1"},
             (err, rslt)=>{
@@ -35,13 +35,15 @@ module.exports = (db)=>{
     userCompleteName: "",
     userDateCreated: null
   }
-  seguridadModel.getAll = (handler)=>{
+  UserModel.getAll = (handler)=>{
 
-    seguridadCollection.find({}).toArray(handler);
+    UserCollection.find({}).toArray(handler);
   }
 
-  seguridadModel.addNew = (dataToAdd, handler)=>{
+  UserModel.addNew = (dataToAdd, handler)=>{
+    console.log('1');
     var { useremail, userpswd, usernames} = dataToAdd;
+    console.log('2');
     var userToAdd = Object.assign(
       {},
       userTemplate,
@@ -51,8 +53,9 @@ module.exports = (db)=>{
         userCompleteName: usernames,
         userDateCreated: new Date().getTime()
       }
-    );
-    seguridadCollection.insertOne(userToAdd, (err, rslt)=>{
+      );
+      console.log('3');
+    UserCollection.insertOne(userToAdd, (err, rslt)=>{
       if(err){
         return handler(err, null);
       }
@@ -61,7 +64,7 @@ module.exports = (db)=>{
     }); //insertOner
   }
 
-  seguridadModel.update = ( dataToUpdate , handler )=>{
+  UserModel.update = ( dataToUpdate , handler )=>{
     var { _id, userpswd, usernames} = dataToUpdate;
     var query = { "_id": new ObjectID(_id)};
     var updateCommad = {
@@ -74,7 +77,7 @@ module.exports = (db)=>{
         "updates": 1
       }
     };
-    seguridadCollection.updateOne(
+    UserCollection.updateOne(
       query,
       updateCommad,
       (err, rslt)=>{
@@ -86,9 +89,9 @@ module.exports = (db)=>{
     );// updateOne
   }
 
-  seguridadModel.deleteByCode = (id, handler)=>{
+  UserModel.deleteByCode = (id, handler)=>{
     var query = {"_id": new ObjectID(id)};
-    seguridadCollection.deleteOne(
+    UserCollection.deleteOne(
       query,
       (err, rslt)=>{
         if(err){
@@ -99,9 +102,9 @@ module.exports = (db)=>{
     ); //deleteOne
   }
 
-  seguridadModel.getById = (id, handler) => {
+  UserModel.getById = (id, handler) => {
     var query = { "_id": new ObjectID(id) };
-    seguridadCollection.findOne(
+    UserCollection.findOne(
       query,
       (err, doc) => {
         if (err) {
@@ -112,14 +115,14 @@ module.exports = (db)=>{
     ); //findOne
   }
 
-  seguridadModel.comparePswd = (hash, raw)=>{
+  UserModel.comparePswd = (hash, raw)=>{
     return bcrypt.compareSync(raw, hash);
   }
 
-  seguridadModel.getByEmail = (email, handler)=>{
+  UserModel.getByEmail = (email, handler)=>{
     var query = {"userEmail":email};
     var projection = { "userEmail": 1, "userPswd": 1, "userCompleteName":1};
-    seguridadCollection.findOne(
+    UserCollection.findOne(
       query,
       {"projection":projection},
       (err, user)=>{
@@ -131,5 +134,5 @@ module.exports = (db)=>{
     )
   }
 
-  return seguridadModel;
+  return UserModel;
 }

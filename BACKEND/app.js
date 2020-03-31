@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
 
 function initApp(db){
   var app = express();
@@ -22,8 +21,7 @@ function initApp(db){
   app.use(express.static(path.join(__dirname, 'public')));
 
   var apiRouter = require('./routes/api/api')(db);
-  app.use('/', indexRouter);
-  app.use('/api', apiRouter);
+  app.use('/', apiRouter);
   console.log('appInit Inicializado');
 
 
