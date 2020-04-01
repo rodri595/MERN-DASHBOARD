@@ -12,7 +12,7 @@ module.exports = (db)=>{
   var UserModel = {}
   var UserCollection = db.collection("users");
 
-  //verificar que tenga el indice, y si no lo tiene crearlo
+  // verificar que tenga el indice, y si no lo tiene crearlo
   if(!hasIndexEmail) {
     UserCollection.indexExists("userEmail_1", (err, rslt)=>{
         if(!rslt){
@@ -41,9 +41,7 @@ module.exports = (db)=>{
   }
 
   UserModel.addNew = (dataToAdd, handler)=>{
-    console.log('1');
     var { useremail, userpswd, usernames} = dataToAdd;
-    console.log('2');
     var userToAdd = Object.assign(
       {},
       userTemplate,
@@ -54,7 +52,6 @@ module.exports = (db)=>{
         userDateCreated: new Date().getTime()
       }
       );
-      console.log('3');
     UserCollection.insertOne(userToAdd, (err, rslt)=>{
       if(err){
         return handler(err, null);

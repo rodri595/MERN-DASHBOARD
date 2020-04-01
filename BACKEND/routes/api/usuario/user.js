@@ -34,11 +34,7 @@ router.get('/users/:id',(req, res)=>{
 
 router.post('/users/new', (req, res)=>{
   var datosEnviados = req.body;
-
-  console.log('data por aqui 1');
-
   userModel.addNew(datosEnviados, (err, addedDoc)=>{
-    console.log('data por aqui 2');
     if(err){
       console.log(err);
       return res.status(500).json({error:'Error al crear Uusaurio'});
@@ -79,17 +75,19 @@ router.delete('/users/del/:id', (req, res)=>{
 
 router.post('/login', (req, res)=>{
   var {userEmail, userPswd} = req.body;
-  userModel.getByEmail(userEmail, (err,user)=>{
+
+  userModel.getByEmail(req.body.useremail, (err,user)=>{
     if(err){
       console.log(err);
       return res.status(400).json({"msg":"Credencales no pueden ser validadas"});
     }
-    if (userModel.comparePswd(user.userPswd, userPswd)){
+    if (userModel.comparePswd(user.userPswd, req.body.userpswd)){
       delete user.userPswd;
       var token =  jwt.sign(user,
-      'secret',
-      {expiresIn:'60m'}
-      )
+        'secret',
+        {expiresIn:'60m'}
+        )
+        console.log(token);
       return res.status(200).json({"user":user, "jwt":token});
     }
     console.log({ userEmail, userPswd, ...{ "msg":"No Coincide Pswds"}});

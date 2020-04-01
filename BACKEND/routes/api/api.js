@@ -14,7 +14,6 @@ passport.use(
       secretOrKey:'secret'
     },
     (payload, next)=>{
-        console.log(payload);
         var user = payload;
         return next(null, user);
     }
@@ -32,11 +31,10 @@ function initApi(db){
 
     // http://localhost:3000/api/version
   router.get('/version', jwtAuthMiddleware, function(req, res){
+    console.log(req.user);
       res.status(200).json({"version":"API v1.0"});
-      console.log(req.user);
     } );
  return router;
 }
-//module.exports = router;
 module.exports = initApi;
 
