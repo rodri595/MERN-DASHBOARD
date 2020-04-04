@@ -481,7 +481,7 @@ var dataPie = {
   series: [40, 20, 40]
 };
 var legendPie = {
-  names: ["Open", "Bounce", "Unsubscribe"],
+  names: ["Activo", "Negativo", "Muertes"],
   types: ["info", "danger", "warning"]
 };
 

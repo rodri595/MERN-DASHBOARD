@@ -33,7 +33,7 @@ class Header extends Component {
       <Navbar fluid>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#pablo">{this.props.brandText}</a>
+            {this.props.brandText}
           </Navbar.Brand>
           <Navbar.Toggle onClick={this.mobileSidebarToggle} />
         </Navbar.Header>

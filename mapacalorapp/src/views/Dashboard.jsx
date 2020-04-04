@@ -77,8 +77,8 @@ class Dashboard extends Component {
               <Card
                 statsIcon="fa fa-history"
                 id="chartHours"
-                title="Users Behavior"
-                category="24 Hours performance"
+                title="Comportamiento de los casos mas fuertes"
+                category="24 Horas"
                 stats="Updated 3 minutes ago"
                 content={
                   <div className="ct-chart">
@@ -98,9 +98,9 @@ class Dashboard extends Component {
             <Col md={4}>
               <Card
                 statsIcon="fa fa-clock-o"
-                title="Email Statistics"
-                category="Last Campaign Performance"
-                stats="Campaign sent 2 days ago"
+                title="Casos"
+                category="Campaña encontra de Covid-19"
+                stats="Campaña Inicio hace 2 dias"
                 content={
                   <div
                     id="chartPreferences"
@@ -120,9 +120,9 @@ class Dashboard extends Component {
             <Col md={6}>
               <Card
                 id="chartActivity"
-                title="2014 Sales"
-                category="All products including Taxes"
-                stats="Data information certified"
+                title="Robos a Mano armada"
+                category="Mas Recientes"
+                stats="Certificado por el 911"
                 statsIcon="fa fa-check"
                 content={
                   <div className="ct-chart">
@@ -142,7 +142,7 @@ class Dashboard extends Component {
 
             <Col md={6}>
               <Card
-                title="Tasks"
+                title="Ultimo"
                 category="Backend development"
                 stats="Updated 3 minutes ago"
                 statsIcon="fa fa-history"
