@@ -1,3 +1,8 @@
+.leaflet-container {
+  width: 100%;
+  height: 100vh;
+}
+
 
 .fixed-plugin .button-container .github-btn{
     display: inline-block;

@@ -38,17 +38,17 @@ class Admin extends Component {
       default:
         break;
     }
-    // this.state._notificationSystem.addNotification({
-    //   title: <span data-notify="icon" className="pe-7s-gift" />,
-    //   message: (
-    //     <div>
-    //       Bienvenido, <b>Recuerde lavarse las Manos y usar Mascarilla</b> 
-    //     </div>
-    //   ),
-    //   level: level,
-    //   position: position,
-    //   autoDismiss: 15
-    // });
+    this.state._notificationSystem.addNotification({
+      title: <span data-notify="icon" className="pe-7s-gift" />,
+      message: (
+        <div>
+          Bienvenido, <b>Recuerde lavarse las Manos y usar Mascarilla</b> 
+        </div>
+      ),
+      level: level,
+      position: position,
+      autoDismiss: 15
+    });
   };
   getRoutes = routes => {
     return routes.map((prop, key) => {
@@ -114,12 +114,12 @@ class Admin extends Component {
       title: <span data-notify="icon" className="pe-7s-gift" />,
       message: (
         <div>
-          Bienvenido, <b>Recuerde lavarse las Manos y usar Mascarilla</b> 
+          Bienvenido, zcxzcxzcxzcxzcxzcxc<b>Recuerde lavarse las Manos y usar Mascarilla</b> 
         </div>
       ),
       level: level,
       position: "tr",
-      autoDismiss: 15
+      autoDismiss: 3
     });
   }
   componentDidUpdate(e) {
