@@ -1,4 +1,3 @@
- 
 import React, { Component } from "react";
 import {
   Grid,
@@ -14,9 +13,9 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { UserCard } from "components/UserCard/UserCard.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
 
-import avatar from "assets/img/faces/face-3.jpg";
 
-class UserProfile extends Component {
+
+export default class Form1 extends Component {
   render() {
     return (
       <div className="content">
@@ -169,5 +168,3 @@ class UserProfile extends Component {
     );
   }
 }
-
-export default UserProfile;

@@ -10,6 +10,7 @@ import Sidebar from "components/Sidebar/Sidebar";
 import { style } from "variables/Variables.jsx";
 
 import routes from "routes.js";
+
 class Admin extends Component {
   constructor(props) {
     super(props);
@@ -19,37 +20,7 @@ class Admin extends Component {
       fixedClasses: "dropdown show-dropdown open"
     };
   }
-  handleNotificationClick = position => {
-    var color = Math.floor(Math.random() * 4 + 1);
-    var level;
-    switch (color) {
-      case 1:
-        level = "success";
-        break;
-      case 2:
-        level = "warning";
-        break;
-      case 3:
-        level = "error";
-        break;
-      case 4:
-        level = "info";
-        break;
-      default:
-        break;
-    }
-    this.state._notificationSystem.addNotification({
-      title: <span data-notify="icon" className="pe-7s-gift" />,
-      message: (
-        <div>
-          Bienvenido, <b>Recuerde lavarse las Manos y usar Mascarilla</b> 
-        </div>
-      ),
-      level: level,
-      position: position,
-      autoDismiss: 15
-    });
-  };
+
   getRoutes = routes => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
@@ -114,7 +85,7 @@ class Admin extends Component {
       title: <span data-notify="icon" className="pe-7s-gift" />,
       message: (
         <div>
-          Bienvenido, zcxzcxzcxzcxzcxzcxc<b>Recuerde lavarse las Manos y usar Mascarilla</b> 
+          Bienvenido, <b>Recuerde lavarse las Manos y usar Mascarilla</b> 
         </div>
       ),
       level: level,

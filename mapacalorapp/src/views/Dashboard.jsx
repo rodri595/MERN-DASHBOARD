@@ -144,8 +144,6 @@ class Dashboard extends Component {
               <Card
                 title="Ultimo"
                 category="Backend development"
-                stats="Updated 3 minutes ago"
-                statsIcon="fa fa-history"
                 content={
                   <div className="table-full-width">
                     <table className="table">
@@ -153,6 +151,8 @@ class Dashboard extends Component {
                     </table>
                   </div>
                 }
+                statsIcon="fa fa-history"
+                stats="Updated 3 minutes ago"
               />
             </Col>
           </Row>

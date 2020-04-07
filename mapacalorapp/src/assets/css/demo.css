@@ -2,8 +2,28 @@
   width: 100%;
   height: 100vh;
 }
+.Incidentes-container {
+  position: absolute;
+  top: 75px;
+  right: 20px;
 
+  z-index: 1000;
+  border-radius: 4px;
+  background-color: whitesmoke;
+}
 
+.basemaps-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  border-radius: 4px;
+  background-color: whitesmoke;
+}
+.basemaps-container select {
+  width: 200px;
+  height: 20px;
+}
 .fixed-plugin .button-container .github-btn{
     display: inline-block;
     font-size: 14px;
