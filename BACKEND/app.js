@@ -24,7 +24,6 @@ function initApp(db){
   app.use('/', apiRouter);
   console.log('appInit Inicializado');
 
-
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));

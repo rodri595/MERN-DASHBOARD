@@ -11,8 +11,8 @@ function initUser(db) {
     });
   });
 
-
-  router.get('/users/all', (req, res) => {
+  ///////////////////////////////////        all     /////////////////////////////////////////////////////////
+  router.get('/all', (req, res) => {
     userModel.getAll((err, users) => {
       if (err) {
         console.log(err);
@@ -24,8 +24,8 @@ function initUser(db) {
     });
   }); // get users/all
 
-
-  router.get('/users/:id', (req, res) => {
+  ///////////////////////////////////        get user     /////////////////////////////////////////////////////////
+  router.get('/:id', (req, res) => {
     var id = req.params.id;
     userModel.getById(id, (err, doc) => {
       if (err) {
@@ -37,8 +37,8 @@ function initUser(db) {
       return res.status(200).json(doc);
     }); // getBYId
   });
-
-  router.post('/users/new', (req, res) => {
+  ///////////////////////////////////       new user      /////////////////////////////////////////////////////////
+  router.post('/new', (req, res) => {
     var datosEnviados = req.body;
     userModel.addNew(datosEnviados, (err, addedDoc) => {
       if (err) {
@@ -50,8 +50,8 @@ function initUser(db) {
       return res.status(200).json(addedDoc);
     }); //addNew
   }); // post users/new
-
-  router.put('/users/upd/:id', (req, res) => {
+  ///////////////////////////////////      update user       /////////////////////////////////////////////////////////
+  router.put('/upd/:id', (req, res) => {
     var id = req.params.id;
     var data = {
       "_id": id,
@@ -70,8 +70,8 @@ function initUser(db) {
     }); // update
   });
 
-
-  router.delete('/users/del/:id', (req, res) => {
+  ///////////////////////////////////      delete user       /////////////////////////////////////////////////////////
+  router.delete('/del/:id', (req, res) => {
     var id = req.params.id;
     userModel.deleteByCode(id, (err, deletedDoc) => {
       if (err) {
@@ -84,7 +84,7 @@ function initUser(db) {
     }); //  deleteByCode
   }); //delete
 
-
+  ///////////////////////////////////     login       /////////////////////////////////////////////////////////
   router.post('/login', (req, res) => {
     var {
       userEmail,
@@ -102,7 +102,7 @@ function initUser(db) {
         if (userModel.comparePswd(user.userPswd, req.body.userpswd)) {
           delete user.userPswd;
           var token = jwt.sign(user,
-            'secret', {
+            'secretobiensecreto', {
               expiresIn: '60m'
             }
           )

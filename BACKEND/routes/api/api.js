@@ -5,13 +5,11 @@ var passportJWT = require('passport-jwt');
 var extractJWT = passportJWT.ExtractJwt;
 var jwtStrategy = passportJWT.Strategy;
 
-
-
 passport.use(
   new jwtStrategy(
     {
       jwtFromRequest: extractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey:'secret'
+      secretOrKey:'secretobiensecreto'
     },
     (payload, next)=>{
         var user = payload;
@@ -20,21 +18,30 @@ passport.use(
   )
 )
 
-
 function initApi(db){
+  var userRouter = require('./usuario/user')(db);
+  var fichaRouter = require('./ficha/ficha')(db);
 
-    /// Routers de Entidades
-    var userRouter = require('./usuario/user')(db);
-    router.use('/', userRouter);
-  
-    var jwtAuthMiddleware = passport.authenticate('jwt',{session:false});
 
-    // http://localhost:3000/api/version
-  router.get('/version', jwtAuthMiddleware, function(req, res){
-    console.log(req.user);
-      res.status(200).json({"version":"API v1.0"});
-    } );
+  router.use('/user', userRouter);
+  var jwtAuthMiddleware = passport.authenticate('jwt',{session:false});
+
+  router.use('/ficha', jwtAuthMiddleware, fichaRouter);
+
+
+    router.get('/', (req, res, next)=>{
+      res.status(200).json({"version":"API v1.0"})
+  });
+
+
+
+
+
+    // http://localhost:3000/version
+    router.get('/ver', jwtAuthMiddleware, function(req, res){
+        res.status(200).json({"version":"API v1.3"});
+      } );
+
  return router;
 }
 module.exports = initApi;
-

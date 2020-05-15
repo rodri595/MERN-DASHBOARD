@@ -23,7 +23,7 @@ MongoClient.connect(MongoUri, MongoOpt, (err, conn) => {
     var app = require('../app')(db);
     var debug = require('debug')('backend:server');
     var http = require('http');
-    console.log('/bin/www : Conexion a la base fue exitosa');
+    console.log('Conexion a la base fue exitosa');
 
     /**
      * Get port from environment and store in Express.

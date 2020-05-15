@@ -32,14 +32,17 @@ module.exports = (db)=>{
   var userTemplate = {
     userEmail: "",
     userPswd: "",
-    userCompleteName: "",
-    userDateCreated: null
+    userName: "",
+    userDateCreated: null,
+    status:'ACT',
   }
+
+    ///////////////////////////////////      ALL       /////////////////////////////////////////////////////////
   UserModel.getAll = (handler)=>{
 
     UserCollection.find({}).toArray(handler);
   }
-
+  ///////////////////////////////////        NEW USER     /////////////////////////////////////////////////////////
   UserModel.addNew = (dataToAdd, handler)=>{
     var { useremail, userpswd, usernames} = dataToAdd;
     var userToAdd = Object.assign(
@@ -48,8 +51,10 @@ module.exports = (db)=>{
       {
         userEmail: useremail,
         userPswd: pswdGenerator(userpswd),
-        userCompleteName: usernames,
-        userDateCreated: new Date().getTime()
+        userName: usernames,
+        userDateCreated: new Date().getTime(),
+        status: 'ACT',
+        roles:["Invitado"]
       }
       );
     UserCollection.insertOne(userToAdd, (err, rslt)=>{
@@ -60,15 +65,18 @@ module.exports = (db)=>{
       return handler(null, rslt.ops[0]);
     }); //insertOner
   }
-
+  ///////////////////////////////////       UPDATE USER      /////////////////////////////////////////////////////////
   UserModel.update = ( dataToUpdate , handler )=>{
-    var { _id, userpswd, usernames} = dataToUpdate;
+    var { _id, userpswd, usernames, newstatus, role} = dataToUpdate;
     var query = { "_id": new ObjectID(_id)};
     var updateCommad = {
       "$set":{
         userPswd: pswdGenerator(userpswd),
-        userCompleteName: usernames,
-        lastUpdated: new Date().getTime()
+        userName: usernames,
+        lastUpdated: new Date().getTime(),
+        status: newstatus,
+        roles:[role]
+        
       },
       "$inc" :{
         "updates": 1
@@ -85,7 +93,7 @@ module.exports = (db)=>{
       }
     );// updateOne
   }
-
+  ///////////////////////////////////     DELETE USER        /////////////////////////////////////////////////////////
   UserModel.deleteByCode = (id, handler)=>{
     var query = {"_id": new ObjectID(id)};
     UserCollection.deleteOne(
@@ -98,7 +106,7 @@ module.exports = (db)=>{
       }
     ); //deleteOne
   }
-
+  ///////////////////////////////////   FIND USER          /////////////////////////////////////////////////////////
   UserModel.getById = (id, handler) => {
     var query = { "_id": new ObjectID(id) };
     UserCollection.findOne(
@@ -111,14 +119,14 @@ module.exports = (db)=>{
       }
     ); //findOne
   }
-
+  ///////////////////////////////////    LOGIN         /////////////////////////////////////////////////////////
   UserModel.comparePswd = (hash, raw)=>{
     return bcrypt.compareSync(raw, hash);
   }
 
   UserModel.getByEmail = (email, handler)=>{
     var query = {"userEmail":email};
-    var projection = { "userEmail": 1, "userPswd": 1, "userCompleteName":1};
+    var projection = { "userEmail": 1, "userPswd": 1, "userName":1};
     UserCollection.findOne(
       query,
       {"projection":projection},
