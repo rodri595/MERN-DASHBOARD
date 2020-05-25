@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Checkbox from "components/CustomCheckbox/CustomCheckbox.jsx";
 
 
-export class Taskmapa extends Component {
+export default  class TasksForm extends Component {
   handleCheckbox = event => {
     const target = event.target;
     console.log(event.target);
@@ -13,11 +13,18 @@ export class Taskmapa extends Component {
   };
   render() {
     const tasks_title = [
-      'Covid-19',
-      "Extorsion",
-      "Sicariato",
-      "Maras",
-      'Drogas'
+      "Copeco",
+      "Bomberos",
+      "Cruz Roja",
+      "COIF",
+      "DPI",
+      "FUSINA",
+      "DNI",
+      "URPA",
+      "FNA",
+      "UME",
+      "Sin Asignar",
+      "Ninguna"
     ];
     var tasks = [];
     var number;
@@ -38,4 +45,3 @@ export class Taskmapa extends Component {
   }
 }
 
-export default Taskmapa;
